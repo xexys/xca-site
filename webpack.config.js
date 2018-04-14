@@ -1,10 +1,10 @@
 const path = require('path');
 
-module.exports = {
-    entry: './client/index.js',
+const clientConfig = {
+    entry: './src/client/index.js',
     output: {
-        path: path.resolve('./build'),
-        filename: 'script.js'
+        path: path.resolve('./dist/client'),
+        filename: 'index.js',
     },
 
     module: {
@@ -12,13 +12,17 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
+                use: 'babel-loader',
+            },
+            {
+                test: /\.css$/,
                 use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env', 'react']
-                    }
-                }
-            }
-        ]
-    }
+                    loader: 'css-loader',
+                },
+            },
+        ],
+    },
 };
+
+
+module.exports = clientConfig;
