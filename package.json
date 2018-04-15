@@ -7,12 +7,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "yarn build:client && yarn build:server",
+    "build": "yarn clear && yarn build:client && yarn build:server",
     "build:client": "webpack --mode development",
-    "build:server": "babel src/server -d dist/server --copy-files",
+    "build:server": "yarn clear:server && babel ./src/server -d ./dist/server --copy-files --source-maps",
+    "clear": "rm -rf ./dist",
+    "clear:client": "rm -rf ./dist/client",
+    "clear:server": "rm -rf ./dist/server",
     "codestyle": "eslint .",
     "flow:watch": "flow-watch",
-    "start": "node dist/server",
+    "start": "node --inspect ./dist/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

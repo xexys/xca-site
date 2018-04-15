@@ -22,6 +22,8 @@ const clientConfig = {
             },
         ],
     },
+
+    devtool: 'source-map',
 };
 
 
