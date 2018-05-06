@@ -12,3 +12,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     ReactDOM.render(<h1>Привет мир!</h1>, rootEl);
 });
+
