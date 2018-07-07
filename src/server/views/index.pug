@@ -3,7 +3,12 @@ doctype html
 html
     head
         title Xexys Cinematic Archive
+
+        script.
+            window.state = !{safeJsonStringify(state)}
+
         script(src="/static/index.js" type="text/javascript")
+
 
     body
         div(id="root")

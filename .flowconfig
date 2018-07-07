@@ -10,5 +10,6 @@
 
 [options]
 include_warnings=true
+module.name_mapper='^@' ->'<PROJECT_ROOT>/src'
 
 [strict]
