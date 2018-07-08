@@ -1,0 +1,33 @@
+{
+    "presets": [
+        "flow"
+    ],
+    "plugins": [
+        ["module-resolver", {
+            "alias": {
+                "@": "./src"
+            }
+        }]
+    ],
+    "env": {
+        "client": {
+            "presets": [
+                ["env", {
+                    "targets": {
+                        "browsers": "last 2 version"
+                    }
+                }],
+                "react"
+            ]
+        },
+        "server": {
+            "presets": [
+                ["env", {
+                    "targets": {
+                        "node": "current"
+                    }
+                }]
+            ]
+        }
+    }
+}

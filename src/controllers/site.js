@@ -2,7 +2,7 @@
 
 import type {$Request, $Response} from 'express';
 
-import {getGamesAsync} from '@/server/resolvers/xca/games';
+import {getGamesAsync} from '@/resolvers/xca/games';
 
 
 export const siteIndex = async (req: $Request, res: $Response): Promise<void> => {

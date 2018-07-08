@@ -1,10 +1,10 @@
 const path = require('path');
 
 const clientConfig = {
-    entry: './src/client/index.js',
+    entry: './src/entries/site.js',
     output: {
         path: path.resolve('./dist/client'),
-        filename: 'index.js',
+        filename: 'site.js',
     },
 
     module: {

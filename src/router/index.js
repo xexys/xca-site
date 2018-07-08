@@ -5,7 +5,7 @@ import type {$Request, $Response, NextFunction, Middleware} from 'express';
 import express from 'express';
 import {map} from 'ramda';
 
-import * as siteControllers from '@/server/controllers/site';
+import * as siteControllers from '@/controllers/site';
 
 
 const router = express.Router();

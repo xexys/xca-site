@@ -1,6 +1,6 @@
 // @flow
 
-import {getCollection} from '@/server/lib/xcaDbClient';
+import {getCollection} from '@/lib/xcaDbClient';
 
 
 export const getGamesAsync = () => getCollection('games').find().toArray();

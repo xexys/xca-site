@@ -31,10 +31,13 @@ module.exports = {
             parserOptions: {
                 sourceType: 'script',
             },
+            env: {
+                node: true,
+            },
         },
         {
             files: [
-                'src/client/**/*.js',
+                'src/entries/**/*.js',
             ],
             env: {
                 browser: true,
@@ -42,7 +45,9 @@ module.exports = {
         },
         {
             files: [
-                'src/server/**/*.js',
+                'src/controllers/**/*.js',
+                'src/resolvers/**/*.js',
+                'src/router/**/*.js',
             ],
             env: {
                 node: true,

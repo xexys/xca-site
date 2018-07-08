@@ -4,8 +4,8 @@ import express from 'express';
 import path from 'path';
 import serializeJs from 'serialize-javascript';
 
-import {connect, disconnect} from '@/server/lib/xcaDbClient';
-import router from '@/server/router';
+import {connect, disconnect} from '@/lib/xcaDbClient';
+import router from '@/router';
 
 
 const safeJsonStringify = (obj: any): string => serializeJs(obj, {json: true});
