@@ -6,7 +6,7 @@ import MongoClient from 'mongodb';
 let instance = null;
 
 
-export const connect = (connectionString: string) => (
+const connect = (connectionString: string): Promise<void> => (
     MongoClient
         .connect(connectionString, {useNewUrlParser: true})
         .then(client => {
@@ -14,10 +14,17 @@ export const connect = (connectionString: string) => (
         })
 );
 
+// $FlowFixMe invariant?
+const disconnect = () => instance.close();
 
-export const disconnect = () => instance.close();
+
+export const init = (config: Object) => {
+    // TODO: Сделать нормальный disconnect
+    return connect(config.connectionString);
+};
 
 
+// $FlowFixMe invariant?
 export const getDb = () => instance.db();
 
 

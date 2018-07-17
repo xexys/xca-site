@@ -2,13 +2,14 @@
 
 import type {$Request, $Response} from 'express';
 
+
 import {getGamesAsync} from '@/resolvers/xca/games';
 
 
-export const siteIndex = async (req: $Request, res: $Response): Promise<void> => {
+export const siteIndex = async ({req, res}): Promise<void> => {
     const games = await getGamesAsync();
 
-    // throw new Error('TEst!');
+    // throw new Error('test');
 
     res.render('index', {
         state: {
@@ -18,6 +19,6 @@ export const siteIndex = async (req: $Request, res: $Response): Promise<void> =>
 };
 
 
-export const siteAbout = (req: $Request, res: $Response): void => {
+export const siteAbout = ({req, res}): void => {
     res.render('about');
 };

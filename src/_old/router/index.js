@@ -12,7 +12,7 @@ const router = express.Router();
 
 const wrapAsync = (fn: Middleware): Middleware => (req: $Request, res: $Response, next: NextFunction) => {
     // $FlowFixMe Хз в чем тут дело, надо разбираться :(
-    Promise.resolve(fn(req, res, next)).catch(next);
+    Promise.resolve(fn({req, res}, next)).catch(next);
 };
 
 
@@ -20,8 +20,6 @@ const {siteIndex, siteAbout} = map(wrapAsync, siteControllers);
 
 
 router.get('/', siteIndex);
-
-
 router.get('/about', siteAbout);
 
 
