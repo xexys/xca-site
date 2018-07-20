@@ -1,61 +1,74 @@
 // @flow
 
-import express from 'express';
-import path from 'path';
-import serializeJs from 'serialize-javascript';
-
-import {ROOT_PATH} from './constants';
-
-
-export class AppLib {}
+import Koa from 'koa';
+import * as urlManager from '@/modules/urlManager';
+import * as dbClient from '@/modules/dbClient';
+import * as session from '@/modules/session';
 
 
-const app = express();
+const app = new Koa();
 
-
-const appLib = {};
-
+let server :? typeof app.server = null;
 
 let appConfig = {};
 
+let modulesConfig = {};
 
-const isAppLibSubclass = Ctor => Object.getPrototypeOf(Ctor) === AppLib;
 
-
-const initLib = name => {
-    const {path, params = {}} = appConfig.lib[name];
-
-    // eslint-disable-next-line global-require, import/no-dynamic-require
-    const module = require(path);
-
-    // eslint-disable-next-line new-cap
-    const lib = module.default && isAppLibSubclass(module.default) ? new module.default() : module;
-
-    return Promise.resolve(lib.init(params)).then(() => lib);
+const initKeys = () => {
+    app.keys = appConfig.secretKeys;
 };
 
 
-export const getLib = name => {
-    if (!appLib[name]) {
-        appLib[name] = initLib(name);
-    }
+const initUrlManager = async () => {
+    const {setup, getRouter, ...props} = urlManager;
 
-    return appLib[name];
+    await setup(modulesConfig.urlManager.routes);
+
+    app.context.urlManager = props;
+    app.use(getRouter().routes());
 };
 
 
-export const init = async config => {
-    appConfig = config;
+const initDbClient = async () => {
+    const {setup, getDb} = dbClient;
 
-    return Promise.all(Object.keys(appConfig.lib).map(name => getLib(name)));
+    await setup(modulesConfig.dbClient.connectionString);
+
+    app.context.db = getDb();
+};
+
+
+const initSession = async () => {
+    const {createMiddleware} = session;
+
+    app.use(createMiddleware(app, modulesConfig.session));
+};
+
+
+export const init = async (config: Object): Promise<void> => {
+    appConfig = config.app;
+    modulesConfig = config.modules;
+
+    await initKeys();
+    await initDbClient();
+    await initSession();
+    await initUrlManager();
 };
 
 
 export const start = () => {
-    const port = appConfig.app.port || 3000;
+    const port = Number(appConfig.port) || 3000;
 
-    app.listen(port, () => {
+    server = app.listen({port}, () => {
         // eslint-disable-next-line no-console
         console.log(`XCA app listening on port ${port}!`);
     });
+};
+
+
+export const stop = () => {
+    if (server) {
+        server.close();
+    }
 };

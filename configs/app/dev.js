@@ -12,44 +12,40 @@ const resolveServerPath = modulePath => resolvePath(SERVER_PATH, modulePath);
 module.exports = {
     app: {
         port: 3000,
+
+        secretKeys: ['im a newer secret', 'i like turtle'],
     },
 
-    lib: {
-        // xcaDbClient: {
-        //     path: resolveServerPath('lib/xcaDbClient'),
-        //     params: {
-        //         connectionString: 'mongodb://localhost:27017/xca',
-        //     },
+    modules: {
+        dbClient: {
+            connectionString: 'mongodb://localhost:27017/xca',
+        },
+
+        urlManager: {
+            routes: [{
+                id: 'site:index',
+                pattern: '/',
+            }, {
+                id: 'site:about',
+                pattern: '/about',
+            }],
+        },
+
+        session: {
+            key: 'xca:sess',
+        },
+
+        // test1: {
+        //     path: resolveServerPath('lib/test1'),
         // },
 
-        // urlManager: {
-        //     path: resolveServerPath('lib/urlManager'),
-        //     params: {
-        //         routes: [{
-        //             id: 'site:index',
-        //             pattern: '/',
-        //             controller: resolveServerPath('controllers/site'),
-        //             action: 'siteIndex',
-        //         }, {
-        //             id: 'site:about',
-        //             pattern: '/about',
-        //             controller: resolveServerPath('controllers/site'),
-        //             action: 'siteAbout',
-        //         }],
-        //     },
+        // test2: {
+        //     path: resolveServerPath('lib/test2'),
         // },
 
-        test1: {
-            path: resolveServerPath('lib/test1'),
-        },
-
-        test2: {
-            path: resolveServerPath('lib/test2'),
-        },
-
-        test3: {
-            path: resolveServerPath('lib/test3'),
-        },
+        // test3: {
+        //     path: resolveServerPath('lib/test3'),
+        // },
 
         // assetsManager: {
 

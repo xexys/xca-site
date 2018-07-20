@@ -24,7 +24,6 @@ export const init = (config: Object) => {
 };
 
 
-// $FlowFixMe invariant?
 export const getDb = () => instance.db();
 
 

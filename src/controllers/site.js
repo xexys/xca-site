@@ -1,12 +1,9 @@
 // @flow
 
-import type {$Request, $Response} from 'express';
-
-
 import {getGamesAsync} from '@/resolvers/xca/games';
 
 
-export const siteIndex = async ({req, res}): Promise<void> => {
+export const siteIndex = async (ctx): Promise<void> => {
     const games = await getGamesAsync();
 
     // throw new Error('test');
@@ -19,6 +16,6 @@ export const siteIndex = async ({req, res}): Promise<void> => {
 };
 
 
-export const siteAbout = ({req, res}): void => {
+export const siteAbout = (ctx): void => {
     res.render('about');
 };
